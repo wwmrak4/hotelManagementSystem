@@ -1,0 +1,18 @@
+hms:
+  api:
+    version: v1
+
+hotel:
+  inventory:
+    api:
+      endpoint: https://hotel-inventory-api.company.com
+      version: /v1
+  pricing:
+    api:
+      endpoint: https://hotel-pricing-api.company.com
+      version: /v1
+  customer:
+    profile:
+      api:
+        endpoint: https://customer-profile-api.company.com
+        version: /v1
