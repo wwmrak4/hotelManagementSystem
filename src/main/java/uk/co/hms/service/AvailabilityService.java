@@ -48,11 +48,7 @@ public class AvailabilityService {
                 .orElseThrow(() -> new HotelInventoryClientException(
                         "Error fetching room types via hotel inventory api for hotelId: " + hotelId));
         log.debug("Successfully fetched room types via hotel inventory api for hotelId: {}", hotelId);
-
-        if (roomTypesResponse.roomTypesAndCount() == null || roomTypesResponse.roomTypesAndCount().isEmpty()) {
-            throw new AvailabilityServiceException("No room types in hotel inventory api response for " +
-                    "hotelId=" + hotelId);
-        }
+        validateHotelInventoryResponse(roomTypesResponse, hotelId);
 
         ResponseEntity<RoomPricingResponse> roomPricingResponseEntity =
                 hotelPricingClient.fetchRoomPrices(RoomPricingRequest.builder()
@@ -68,10 +64,7 @@ public class AvailabilityService {
                 .orElseThrow(() -> new HotelPricingClientException(
                         "Error fetching room pricing information via hotel pricing api for hotelId: " + hotelId));
         log.debug("Successfully fetched room pricing information via hotel pricing api for hotelId: {}", hotelId);
-
-        if (roomPricingResponse.roomTypesPrices() == null || roomPricingResponse.roomTypesPrices().isEmpty()) {
-            throw new AvailabilityServiceException("No pricing data available for hotelId=" + hotelId);
-        }
+        validateHotelPricingResponse(roomPricingResponse, hotelId);
 
         ResponseEntity<CustomerProfileResponse> customerProfileResponseEntity =
                 customerProfileClient.fetchCustomerProfile(customerId);
@@ -118,6 +111,19 @@ public class AvailabilityService {
                 .hotelId(availabilityRequest.getHotelId())
                 .availableRooms(availableRooms)
                 .build();
+    }
+
+    private static void validateHotelPricingResponse(RoomPricingResponse roomPricingResponse, Long hotelId) throws AvailabilityServiceException {
+        if (roomPricingResponse.roomTypesPrices() == null || roomPricingResponse.roomTypesPrices().isEmpty()) {
+            throw new AvailabilityServiceException("No pricing data available for hotelId=" + hotelId);
+        }
+    }
+
+    private static void validateHotelInventoryResponse(RoomTypesResponse roomTypesResponse, Long hotelId) throws AvailabilityServiceException {
+        if (roomTypesResponse.roomTypesAndCount() == null || roomTypesResponse.roomTypesAndCount().isEmpty()) {
+            throw new AvailabilityServiceException("No room types in hotel inventory api response for " +
+                    "hotelId=" + hotelId);
+        }
     }
 
     private BigDecimal getCustomerRoomDiscount(CustomerProfileResponse customerProfileResponse) {
