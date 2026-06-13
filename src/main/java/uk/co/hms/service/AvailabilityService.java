@@ -113,13 +113,13 @@ public class AvailabilityService {
                 .build();
     }
 
-    private static void validateHotelPricingResponse(RoomPricingResponse roomPricingResponse, Long hotelId) throws AvailabilityServiceException {
+    private void validateHotelPricingResponse(RoomPricingResponse roomPricingResponse, Long hotelId) throws AvailabilityServiceException {
         if (roomPricingResponse.roomTypesPrices() == null || roomPricingResponse.roomTypesPrices().isEmpty()) {
             throw new AvailabilityServiceException("No pricing data available for hotelId=" + hotelId);
         }
     }
 
-    private static void validateHotelInventoryResponse(RoomTypesResponse roomTypesResponse, Long hotelId) throws AvailabilityServiceException {
+    private void validateHotelInventoryResponse(RoomTypesResponse roomTypesResponse, Long hotelId) throws AvailabilityServiceException {
         if (roomTypesResponse.roomTypesAndCount() == null || roomTypesResponse.roomTypesAndCount().isEmpty()) {
             throw new AvailabilityServiceException("No room types in hotel inventory api response for " +
                     "hotelId=" + hotelId);

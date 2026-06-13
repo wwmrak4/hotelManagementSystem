@@ -11,8 +11,9 @@ hotel:
     api:
       endpoint: https://hotel-pricing-api.company.com
       version: /v1
-  customer:
-    profile:
-      api:
-        endpoint: https://customer-profile-api.company.com
-        version: /v1
+
+customer:
+  profile:
+    api:
+      endpoint: https://customer-profile-api.company.com
+      version: /v1
