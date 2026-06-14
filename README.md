@@ -24,7 +24,7 @@ The availability response is composed by aggregating data from the following ext
 
 ## Testing Approach
 
-### Unit Tests
+### Unit and Integration Tests
 
 The unit tests follow a behavior-driven style and focus on verifying behaviour rather than implementation details.
 
@@ -33,10 +33,6 @@ Key principles:
 - Test only the public API of a component.
 - Prefer behavioral testing over implementation-focused testing.
 - Use interaction verification where appropriate (`verifyInteractions`).
-- Follow descriptive naming conventions using `should...` and `when...`.
+- Follow behavioural naming conventions using `should...` and `when...`.
 - Extract common setup and assertions into helper methods when it improves maintainability without significantly reducing readability.
-- Use parameterized tests for similar scenarios where appropriate (currently removed to keep examples concise).
-
-### Integration Tests
-
-Integration tests are currently a work in progress.
+- Use parameterized tests for similar scenarios where appropriate
